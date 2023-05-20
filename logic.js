@@ -72,3 +72,16 @@ const appContainer = document.querySelector(".app-container");
 
 //loop the library list and create a book element and append it to the app container div
 library.map((book) => appContainer.appendChild(book.createBookElement()));
+
+// create a button : once clicked display a modal for the user to add a new book
+const addBookButton = document.querySelector(".add-book-button");
+const closeDialogue = document.getElementById("close-dialogue");
+const dialogue = document.getElementById("add-book-dialogue");
+
+addBookButton.addEventListener("click", () => {
+  dialogue.showModal();
+});
+
+closeDialogue.addEventListener("click", () => {
+  dialogue.close();
+});
