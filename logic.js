@@ -5,7 +5,7 @@ let library = [];
 //put the book constructor inside another function to create a closure so each time a new book is created we increment book count variable and give each book a unique ID
 function bookCreator() {
   let bookCount = 0;
-  return function Book(title, author, description, numberOfPages, read) {
+  return function (title, author, description, numberOfPages, read) {
     this.title = title;
     this.author = author;
     this.description = description;
@@ -18,19 +18,23 @@ function bookCreator() {
   };
 }
 
-function createBookElement(Book) {
+let Book = bookCreator();
+
+Book.prototype.createBookElement = function () {
   const bookElement = document.createElement("div");
   bookElement.classList.add("book-card");
+  //This is so we can associate the DOM element of the book with the book in the library list
+  bookElement.dataset.id = this.id;
   //create the elements inside the book card that are going to contain the information
   const title = document.createElement("h2");
   const author = document.createElement("p");
   const description = document.createElement("p");
   const numberOfPages = document.createElement("p");
 
-  title.innerText = Book.title;
-  author.innerText = Book.author;
-  description.innerText = Book.description;
-  numberOfPages.innerText = Book.numberOfPages;
+  title.innerText = this.title;
+  author.innerText = this.author;
+  description.innerText = this.description;
+  numberOfPages.innerText = this.numberOfPages;
 
   //add the created elements as children to the bookElement
 
@@ -42,8 +46,7 @@ function createBookElement(Book) {
   //add a toggle button for the read state of the book
 
   return bookElement;
-}
-let Book = bookCreator();
+};
 
 let book1 = new Book(
   "example-title",
@@ -63,5 +66,9 @@ let book2 = new Book(
   false
 );
 
-console.log(book1.id);
-console.log(book2.id);
+library.push(book1, book2);
+
+const appContainer = document.querySelector(".app-container");
+
+//loop the library list and create a book element and append it to the app container div
+library.map((book) => appContainer.appendChild(book.createBookElement()));
