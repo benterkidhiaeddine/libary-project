@@ -44,7 +44,17 @@ Book.prototype.createBookElement = function () {
   bookElement.appendChild(numberOfPages);
 
   //add a toggle button for the read state of the book
+  const readToggleButton = document.createElement("input");
+  readToggleButton.type = "checkbox";
+  readToggleButton.id = `read-toggle-${this.id}`;
+  readToggleButton.name = `read-toggle-${this.id}`;
 
+  const readToggleLabel = document.createElement("label");
+  readToggleLabel.innerText = "Already read";
+  readToggleLabel.htmlFor = `read-toggle-${this.id}`;
+
+  bookElement.appendChild(readToggleLabel);
+  bookElement.appendChild(readToggleButton);
   return bookElement;
 };
 
@@ -120,3 +130,5 @@ submitNewBook.addEventListener("click", (e) => {
   //rerender the available books in the library on each modification
   renderLibrary();
 });
+
+//edit book functionality
