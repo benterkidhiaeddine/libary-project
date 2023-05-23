@@ -155,6 +155,13 @@ addBookButton.addEventListener("click", () => {
   confirmBookChange.style.display = "none";
   submitNewBook.style.display = "block";
 
+  //make sure the input fields are empty when we are adding a new book
+  titleField.value = "";
+  authorField.value = "";
+  descriptionField.value = "";
+  numberOfPagesField.value = "";
+  readField.checked = "";
+
   dialogue.showModal();
 });
 
@@ -191,8 +198,6 @@ confirmBookChange.addEventListener("click", (e) => {
   library[bookIdField.value].description = descriptionField.value;
   library[bookIdField.value].numberOfPages = numberOfPagesField.value;
   library[bookIdField.value].read = readField.checked;
-  console.log(library);
-  console.log(library[bookIdField.value].read);
 
   //render the library
   renderLibrary();
