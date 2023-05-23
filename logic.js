@@ -56,6 +56,13 @@ Book.prototype.createBookElement = function () {
   const description = document.createElement("p");
   const numberOfPages = document.createElement("p");
 
+  //add classes for elements for styling purposes
+
+  title.classList.add("book-title");
+  author.classList.add("book-author");
+  description.classList.add("book-description");
+  numberOfPages.classList.add("book-number-of-pages");
+
   title.innerText = `Title : ${this.title}`;
   author.innerText = `Author : ${this.author}`;
   description.innerText = `Description : ${this.description}`;
@@ -140,7 +147,7 @@ Book.prototype.createBookElement = function () {
 let book1 = new Book(
   "example-title",
   "example-author",
-  "example-description",
+  "example-descLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,ription",
   40,
   false
 );
@@ -148,7 +155,7 @@ let book1 = new Book(
 let book2 = new Book(
   "example-title2",
   "example-author2",
-  "example-description2",
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,",
   40,
   false
 );

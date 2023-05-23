@@ -34,7 +34,67 @@ h5,
 h6 {
   overflow-wrap: break-word;
 }
+
 /* to keep the modal centered */
 dialog {
   margin: auto auto;
+}
+
+:root {
+  --primary-color: #1192e8;
+  --danger-color: #fa4d56;
+  --background-color: #bae6ff;
+}
+
+body {
+  background-color: var(--background-color);
+  font-family: sans-serif;
+}
+
+/*navbar --------------------------------------------*/
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff1f1;
+  box-shadow: 3px 3px 3px 1px;
+  margin-bottom: 20px;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-img {
+  width: 64px;
+}
+
+.add-book-button {
+  height: 30px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background-color: var(--primary-color);
+  color: #fff1f1;
+  border: 1px solid var(--primary-color);
+  box-shadow: rgb(0, 0, 0, 0.8) 2px 2px 2px 2px;
+}
+
+/*main section */
+
+.app-container {
+  padding: 50px 20px;
+}
+
+.books-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.book-card {
+  padding: 10px 15px;
+  border: 1px solid black;
 }
