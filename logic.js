@@ -1,3 +1,27 @@
+const booksContainer = document.querySelector(".books-container");
+
+//the button responsible for adding new books
+const addBookButton = document.querySelector(".add-book-button");
+//modal element and buttons
+const closeDialogue = document.getElementById("close-dialogue");
+const dialogue = document.getElementById("add-book-dialogue");
+
+//select the different input fields inside the modal
+
+const titleField = document.getElementById("title");
+const authorField = document.getElementById("author");
+const descriptionField = document.getElementById("description");
+const numberOfPagesField = document.getElementById("number-of-pages");
+const readField = document.getElementById("read");
+
+//select the button inside the modal responsible for submitting a new book
+
+const submitNewBook = document.getElementById("submit-new-book");
+
+//select the button inside the modal responsible for confirming changes
+
+const confirmBookChange = document.getElementById("confirm-book-edit");
+
 //create a list to store our books in
 
 let library = [];
@@ -55,6 +79,37 @@ Book.prototype.createBookElement = function () {
 
   bookElement.appendChild(readToggleLabel);
   bookElement.appendChild(readToggleButton);
+
+  //add a button to edit the contents of the book card
+
+  const editBookButton = document.createElement("button");
+
+  editBookButton.innerText = "Edit content";
+  editBookButton.id = `edit-book-${this.id}`;
+
+  //functionality when the edit book button is clicked
+  editBookButton.addEventListener("click", () => {
+    //change the dialogue first p tag to correspond to editing a book and not adding a new one
+    dialogue.querySelector("p").innerText =
+      "Enter the information you want to change about this book";
+
+    //hide the submit-new-book button and replace it with confirm-edit button
+
+    //show edit button and hide add new button
+    confirmBookChange.style.display = "block";
+    submitNewBook.style.display = "none";
+
+    //put in the input field the information that is already in the book card
+    titleField.value = this.title;
+    authorField.value = this.author;
+    descriptionField.value = this.description;
+    numberOfPagesField.value = this.numberOfPages;
+    readField.checked = this.read;
+    dialogue.showModal();
+  });
+
+  bookElement.appendChild(editBookButton);
+
   return bookElement;
 };
 
@@ -78,8 +133,6 @@ let book2 = new Book(
 
 library.push(book1, book2);
 
-const booksContainer = document.querySelector(".books-container");
-
 //loop the library list and create a book element and append it to the book container div
 function renderLibrary() {
   //empty out the book container div before filling it up again
@@ -90,12 +143,11 @@ function renderLibrary() {
 //initial rendering of the library
 renderLibrary();
 
-// create a button : once clicked display a modal for the user to add a new book
-const addBookButton = document.querySelector(".add-book-button");
-const closeDialogue = document.getElementById("close-dialogue");
-const dialogue = document.getElementById("add-book-dialogue");
-
 addBookButton.addEventListener("click", () => {
+  //show add button and hide edit button
+  confirmBookChange.style.display = "none";
+  submitNewBook.style.display = "block";
+
   dialogue.showModal();
 });
 
@@ -103,20 +155,8 @@ closeDialogue.addEventListener("click", () => {
   dialogue.close();
 });
 
-//select the button responsible for submitting a new book
-
-const submitNewBook = document.getElementById("submit-new-book");
-
 submitNewBook.addEventListener("click", (e) => {
   e.preventDefault();
-
-  //select the different input fields
-
-  const titleField = document.getElementById("title");
-  const authorField = document.getElementById("author");
-  const descriptionField = document.getElementById("description");
-  const numberOfPagesField = document.getElementById("number-of-pages");
-  const readField = document.getElementById("read");
 
   let newBook = new Book(
     titleField.value,
