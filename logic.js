@@ -92,7 +92,7 @@ Book.prototype.createBookElement = function () {
 
   const editBookButton = document.createElement("button");
 
-  editBookButton.innerText = "Edit content";
+  editBookButton.innerText = "Edit";
   editBookButton.id = `edit-book-${this.id}`;
 
   //functionality when the edit book button is clicked
@@ -118,6 +118,21 @@ Book.prototype.createBookElement = function () {
   });
 
   bookElement.appendChild(editBookButton);
+
+  //create a remove book button
+
+  const removeBookButton = document.createElement("button");
+  removeBookButton.innerText = "Remove";
+  //classes for this button for styling
+  removeBookButton.classList.add("remove-book-button");
+
+  //functionality for the remove book button
+  removeBookButton.addEventListener("click", () => {
+    library[this.id] = undefined;
+    renderLibrary();
+  });
+
+  bookElement.appendChild(removeBookButton);
 
   return bookElement;
 };
@@ -145,7 +160,9 @@ function renderLibrary() {
   //empty out the book container div before filling it up again
   booksContainer.innerHTML = "";
 
-  library.map((book) => booksContainer.appendChild(book.createBookElement()));
+  library
+    .filter((book) => book !== undefined)
+    .map((book) => booksContainer.appendChild(book.createBookElement()));
 }
 //initial rendering of the library
 renderLibrary();
@@ -204,3 +221,5 @@ confirmBookChange.addEventListener("click", (e) => {
   //close modal
   dialogue.close();
 });
+
+//remove book functionality
