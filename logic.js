@@ -13,6 +13,7 @@ const authorField = document.getElementById("author");
 const descriptionField = document.getElementById("description");
 const numberOfPagesField = document.getElementById("number-of-pages");
 const readField = document.getElementById("read");
+const bookIdField = document.getElementById("book-id-field");
 
 //select the button inside the modal responsible for submitting a new book
 
@@ -28,7 +29,7 @@ let library = [];
 // Create a book constructor function to instantiate new book objects containing relevant information about a book
 //put the book constructor inside another function to create a closure so each time a new book is created we increment book count variable and give each book a unique ID
 function bookCreator() {
-  let bookCount = 0;
+  let bookCount = -1;
   return function (title, author, description, numberOfPages, read) {
     this.title = title;
     this.author = author;
@@ -69,9 +70,16 @@ Book.prototype.createBookElement = function () {
 
   //add a toggle button for the read state of the book
   const readToggleButton = document.createElement("input");
+  readToggleButton.checked = this.read;
   readToggleButton.type = "checkbox";
   readToggleButton.id = `read-toggle-${this.id}`;
   readToggleButton.name = `read-toggle-${this.id}`;
+
+  //when the check box state is changed change the read property on the book element
+
+  readToggleButton.addEventListener("change", () => {
+    library[this.id].read = readToggleButton.checked;
+  });
 
   const readToggleLabel = document.createElement("label");
   readToggleLabel.innerText = "Already read";
@@ -105,6 +113,7 @@ Book.prototype.createBookElement = function () {
     descriptionField.value = this.description;
     numberOfPagesField.value = this.numberOfPages;
     readField.checked = this.read;
+    bookIdField.value = this.id;
     dialogue.showModal();
   });
 
@@ -120,8 +129,6 @@ let book1 = new Book(
   40,
   false
 );
-
-console.log(book1.id);
 
 let book2 = new Book(
   "example-title2",
@@ -151,6 +158,7 @@ addBookButton.addEventListener("click", () => {
   dialogue.showModal();
 });
 
+//closing the modal functionality
 closeDialogue.addEventListener("click", () => {
   dialogue.close();
 });
@@ -169,6 +177,25 @@ submitNewBook.addEventListener("click", (e) => {
   library.push(newBook);
   //rerender the available books in the library on each modification
   renderLibrary();
+  //close modal
+  dialogue.close();
 });
 
-//edit book functionality
+//confirm edit  book functionality
+confirmBookChange.addEventListener("click", (e) => {
+  //so the page dosen't refresh when we confirm the changes
+  e.preventDefault();
+  //make the changes according to the entered values
+  library[bookIdField.value].title = titleField.value;
+  library[bookIdField.value].author = authorField.value;
+  library[bookIdField.value].description = descriptionField.value;
+  library[bookIdField.value].numberOfPages = numberOfPagesField.value;
+  library[bookIdField.value].read = readField.checked;
+  console.log(library);
+  console.log(library[bookIdField.value].read);
+
+  //render the library
+  renderLibrary();
+  //close modal
+  dialogue.close();
+});
