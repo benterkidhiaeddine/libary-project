@@ -56,10 +56,10 @@ Book.prototype.createBookElement = function () {
   const description = document.createElement("p");
   const numberOfPages = document.createElement("p");
 
-  title.innerText = this.title;
-  author.innerText = this.author;
-  description.innerText = this.description;
-  numberOfPages.innerText = this.numberOfPages;
+  title.innerText = `Title : ${this.title}`;
+  author.innerText = `Author : ${this.author}`;
+  description.innerText = `Description : ${this.description}`;
+  numberOfPages.innerText = `Pages : ${this.numberOfPages}`;
 
   //add the created elements as children to the bookElement
 
@@ -221,5 +221,3 @@ confirmBookChange.addEventListener("click", (e) => {
   //close modal
   dialogue.close();
 });
-
-//remove book functionality
