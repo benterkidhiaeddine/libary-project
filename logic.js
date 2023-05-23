@@ -68,10 +68,17 @@ let book2 = new Book(
 
 library.push(book1, book2);
 
-const appContainer = document.querySelector(".app-container");
+const booksContainer = document.querySelector(".books-container");
 
-//loop the library list and create a book element and append it to the app container div
-library.map((book) => appContainer.appendChild(book.createBookElement()));
+//loop the library list and create a book element and append it to the book container div
+function renderLibrary() {
+  //empty out the book container div before filling it up again
+  booksContainer.innerHTML = "";
+
+  library.map((book) => booksContainer.appendChild(book.createBookElement()));
+}
+//initial rendering of the library
+renderLibrary();
 
 // create a button : once clicked display a modal for the user to add a new book
 const addBookButton = document.querySelector(".add-book-button");
@@ -84,4 +91,32 @@ addBookButton.addEventListener("click", () => {
 
 closeDialogue.addEventListener("click", () => {
   dialogue.close();
+});
+
+//select the button responsible for submitting a new book
+
+const submitNewBook = document.getElementById("submit-new-book");
+
+submitNewBook.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  //select the different input fields
+
+  const titleField = document.getElementById("title");
+  const authorField = document.getElementById("author");
+  const descriptionField = document.getElementById("description");
+  const numberOfPagesField = document.getElementById("number-of-pages");
+  const readField = document.getElementById("read");
+
+  let newBook = new Book(
+    titleField.value,
+    authorField.value,
+    descriptionField.value,
+    numberOfPagesField.value,
+    readField.checked
+  );
+
+  library.push(newBook);
+  //rerender the available books in the library on each modification
+  renderLibrary();
 });
