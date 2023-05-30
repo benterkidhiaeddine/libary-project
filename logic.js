@@ -92,7 +92,7 @@ Book.prototype.createBookElement = function () {
   readToggleLabel.innerText = "Already read";
   readToggleLabel.htmlFor = `read-toggle-${this.id}`;
 
-  //make the checkbox go inside the label to fix alignment problems
+  //make the checkbox go inside the label to fix alignment problemes
   readToggleLabel.appendChild(readToggleButton);
   bookElement.appendChild(readToggleLabel);
 
@@ -102,6 +102,9 @@ Book.prototype.createBookElement = function () {
 
   editBookButton.innerText = "Edit";
   editBookButton.id = `edit-book-${this.id}`;
+
+  //edit a class name for css styling
+  editBookButton.classList.add("edit-book-button");
 
   //functionality when the edit book button is clicked
   editBookButton.addEventListener("click", () => {
