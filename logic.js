@@ -92,8 +92,9 @@ Book.prototype.createBookElement = function () {
   readToggleLabel.innerText = "Already read";
   readToggleLabel.htmlFor = `read-toggle-${this.id}`;
 
+  //make the checkbox go inside the label to fix alignment problems
+  readToggleLabel.appendChild(readToggleButton);
   bookElement.appendChild(readToggleLabel);
-  bookElement.appendChild(readToggleButton);
 
   //add a button to edit the contents of the book card
 
