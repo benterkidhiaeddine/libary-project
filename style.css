@@ -82,6 +82,10 @@ body {
   box-shadow: rgb(0, 0, 0, 0.8) 2px 2px 2px 2px;
 }
 
+.add-book-button:active {
+  box-shadow: inset rgb(0, 0, 0, 0.8) 2px 2px 2px 2px;
+}
+
 /*main section */
 
 .app-container {
@@ -120,6 +124,10 @@ input[type="checkbox"] {
   border: 1px solid var(--primary-color);
   box-shadow: rgb(0, 0, 0, 0.8) 2px 2px 2px 2px;
   align-self: center;
+}
+
+.book-card button:active {
+  box-shadow: inset rgb(0, 0, 0, 0.8) 2px 2px 2px 2px;
 }
 
 /*make the button go to the bottom even if the description doesn't take much space*/
